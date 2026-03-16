@@ -1,0 +1,26 @@
+﻿[
+  {
+    "App ID": "ap-gXGZs2LmG9pIpkdPB2YPH2",
+    "Description": "autoegolab",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-03-16 12:08:51+05:30",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-F7aGIIWUhvuWS1sWJjPwDo",
+    "Description": "autoegolab-v3",
+    "State": "deployed",
+    "Tasks": "0",
+    "Created at": "2026-03-16 15:34:49+05:30",
+    "Stopped at": null
+  },
+  {
+    "App ID": "ap-9aKEW3cIuFwBYHKNWOoxxk",
+    "Description": "autoegolab-v3",
+    "State": "stopped",
+    "Tasks": "0",
+    "Created at": "2026-03-16 15:31:55+05:30",
+    "Stopped at": "2026-03-16 15:31:56+05:30"
+  }
+]

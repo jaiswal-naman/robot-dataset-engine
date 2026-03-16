@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-landing-primary: #1f44f9;
+  --color-landing-bg-dark: #000000;
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-accent-purple: #8b5cf6;
+  
+  --color-demo-primary: #1f44f9;
+  --color-demo-bg-dark: #060812;
+  --color-neon-green: #10b981;
+  --color-neon-purple: #a855f7;
+  --color-neon-blue: #3b82f6;
+
+  --color-lib-primary: #8c25f4;
+  --color-lib-bg-dark: #0a060e;
+  --color-success-green: #00ff9d;
+  --color-accent-blue: #00f2ff;
+  --color-card-dark: #191022;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+/* ─── Stitch Landing Styles ─────────────────────────────────────────── */
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.hero-glow {
+    background: radial-gradient(circle at 50% 50%, rgba(31, 68, 249, 0.15) 0%, transparent 70%);
+}
+.text-gradient {
+    background: linear-gradient(to right, #ffffff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ─── Stitch Demo Styles ─────────────────────────────────────────── */
+.glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.glass-dark {
+    background: rgba(15, 19, 35, 0.7);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.neon-border-blue {
+    border: 1px dashed rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+}
+.glow-blue {
+    box-shadow: 0 0 20px rgba(31, 68, 249, 0.3);
+}
+.glow-text-green {
+    text-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+.mask-overlay {
+    background: rgba(168, 85, 247, 0.2);
+    border: 2px solid rgba(168, 85, 247, 0.6);
+}
+
+/* ─── Stitch Library Styles ─────────────────────────────────────────── */
+.glass-effect {
+    background: rgba(25, 16, 34, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(140, 37, 244, 0.2);
+}
+.neon-glow-purple {
+    box-shadow: 0 0 15px rgba(140, 37, 244, 0.4);
+}
+.neon-glow-blue {
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+}
+
+/* ─── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+}

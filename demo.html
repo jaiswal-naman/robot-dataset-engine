@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AutoEgoLab v3.0 | Processing Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1f44f9",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#060812",
+                        "neon-green": "#10b981",
+                        "neon-purple": "#a855f7",
+                        "neon-blue": "#3b82f6",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-dark {
+            background: rgba(15, 19, 35, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .neon-border-blue {
+            border: 1px dashed rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+        }
+        .glow-blue {
+            box-shadow: 0 0 20px rgba(31, 68, 249, 0.3);
+        }
+        .glow-text-green {
+            text-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+        }
+        .mask-overlay {
+            background: rgba(168, 85, 247, 0.2);
+            border: 2px solid rgba(168, 85, 247, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<header class="flex items-center justify-between border-b border-white/10 bg-background-dark/50 px-8 py-4 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">deployed_code</span>
+</div>
+<div class="flex flex-col">
+<h2 class="text-lg font-bold leading-none tracking-tight">AutoEgoLab <span class="text-primary">v3.0</span></h2>
+<span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Autonomous Robotics Engine</span>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden md:flex items-center gap-8 mr-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Training Sets</a>
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Inference</a>
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Settings</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold glow-blue hover:bg-primary/90 transition-all">
+<span class="material-symbols-outlined text-sm">precision_manufacturing</span>
+<span>Connect Robot</span>
+</button>
+<div class="h-10 w-10 rounded-full border border-white/20 bg-slate-800 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User profile avatar portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQnjTy_VjhzaJ0vm6y0Z1IUbu6ipO9rlkOo36z0Wj8Y4rvGdgN3mqdfr16akNPc66Bw93LsWye2q-_ionYx2Rdy1exx1wXGBwnT8CAgWuyOKMmAzPy7A8yp8uoD55aalqzhLzQTN94SqCVC2sY1iooyI2eA_MTWwXqP4LBsNPTVPyMJWdcfgyYoiGFoAk9r981NnNHaCcYHEMHtWHeTowCKeuUsAge05Q8lVRPY21L-n1BfRE1o3oJm27F75Sh-s-uKz6KUZFP9Oc"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex flex-1 p-6 gap-6 h-[calc(100vh-73px)]">
+<aside class="w-80 flex flex-col gap-6">
+<div class="glass p-6 rounded-xl flex flex-col gap-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary">cloud_upload</span>
+<h3 class="font-bold text-sm">Data Acquisition</h3>
+</div>
+<div class="neon-border-blue rounded-xl p-8 flex flex-col items-center justify-center gap-3 bg-primary/5 hover:bg-primary/10 transition-all cursor-pointer group">
+<span class="material-symbols-outlined text-4xl text-primary group-hover:scale-110 transition-transform">movie</span>
+<div class="text-center">
+<p class="text-sm font-bold">Upload Factory Footage</p>
+<p class="text-[11px] text-slate-400 mt-1">MP4, MOV up to 2GB</p>
+</div>
+</div>
+</div>
+<div class="glass flex-1 p-6 rounded-xl flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-neon-green">account_tree</span>
+<h3 class="font-bold text-sm">Pipeline Tracker</h3>
+</div>
+<span class="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400">v3.0-STABLE</span>
+</div>
+<div class="flex flex-col flex-1 relative">
+<div class="absolute left-[11px] top-2 bottom-2 w-[1px] bg-slate-800"></div>
+<div class="flex gap-4 mb-6 relative z-10">
+<div class="w-6 h-6 rounded-full bg-neon-green flex items-center justify-center glow-text-green">
+<span class="material-symbols-outlined text-xs text-background-dark font-bold">check</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-white">Video Input</p>
+<p class="text-[11px] text-neon-green font-medium">Completed</p>
+</div>
+</div>
+<div class="flex gap-4 mb-6 relative z-10">
+<div class="w-6 h-6 rounded-full bg-neon-green flex items-center justify-center glow-text-green">
+<span class="material-symbols-outlined text-xs text-background-dark font-bold">check</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-white">Quality Check</p>
+<p class="text-[11px] text-neon-green font-medium">Completed</p>
+</div>
+</div>
+<div class="flex gap-4 mb-6 relative z-10">
+<div class="w-6 h-6 rounded-full bg-primary/20 border border-primary flex items-center justify-center animate-pulse">
+<div class="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_#1f44f9]"></div>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-white">Perception (DINOv2)</p>
+<p class="text-[11px] text-primary font-medium">In-progress...</p>
+</div>
+</div>
+<div class="flex gap-4 mb-6 relative z-10 opacity-40">
+<div class="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center"></div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-slate-300">Segmentation (SAM)</p>
+<p class="text-[11px] text-slate-500 font-medium">Pending</p>
+</div>
+</div>
+<div class="flex gap-4 mb-6 relative z-10 opacity-40">
+<div class="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center"></div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-slate-300">Action Recognition</p>
+<p class="text-[11px] text-slate-500 font-medium">Pending</p>
+</div>
+</div>
+<div class="flex gap-4 mb-6 relative z-10 opacity-40">
+<div class="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center"></div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-slate-300">Task Graph Gen</p>
+<p class="text-[11px] text-slate-500 font-medium">Pending</p>
+</div>
+</div>
+<div class="flex gap-4 relative z-10 opacity-40">
+<div class="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center"></div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-slate-300">Output RLDS Builder</p>
+<p class="text-[11px] text-slate-500 font-medium">Pending</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<section class="flex-1 glass rounded-xl flex flex-col overflow-hidden relative">
+<div class="p-6 border-b border-white/5 flex items-center justify-between glass-dark z-20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">visibility</span>
+<h2 class="text-xl font-bold tracking-tight">Live Perception Stream</h2>
+</div>
+<div class="flex items-center gap-2 bg-neon-purple/20 border border-neon-purple/30 px-3 py-1.5 rounded-full">
+<div class="w-2 h-2 rounded-full bg-neon-purple animate-pulse"></div>
+<span class="text-xs font-bold text-neon-purple tracking-wide">PROCESSING: 42%</span>
+</div>
+</div>
+<div class="flex-1 relative bg-black overflow-hidden group">
+<img class="w-full h-full object-cover opacity-60" data-alt="Industrial robot arm assembly line in factory" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSJBBuEOMKGmSLCtOy8LAIxoXbssEpoOSl9Uvpt9Vr-zwCX7tGqw46Oe4ZyY-xBYxhbjLWdb1YQoc8Pi8_JJqUl_6ZEEiImLI_GmsyQAI7hzDDJXe0BZyumcubrT7CXiu--XtAzj4e2KShSh3fhoX3CP3zWSpsw2FFdKMDRUWCrGplYmPSBYQsryZNdWAjT7CXEpugmnjUdqeJPJvMJX6P6nLM-vGtahu0FPs8Z4rqH2LpVfP0GwCz1cEjY32AvJuME8yCz0BHUEI"/>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="absolute top-1/4 left-1/3 w-64 h-48 border-2 border-neon-blue rounded-sm">
+<div class="absolute -top-6 left-0 bg-neon-blue text-white text-[10px] font-bold px-2 py-0.5 rounded-t">DINOv2: ROBOTIC_ARM_L1</div>
+<div class="absolute top-2 right-2 flex flex-col items-end gap-1">
+<div class="glass px-2 py-1 rounded text-[10px] text-white">CONF: 0.982</div>
+</div>
+</div>
+<div class="absolute bottom-1/3 right-1/4 w-32 h-32 mask-overlay rounded-full blur-sm"></div>
+<div class="absolute bottom-1/3 right-1/4 w-32 h-32 border border-neon-purple flex items-center justify-center">
+<div class="absolute -top-6 left-0 bg-neon-purple text-white text-[10px] font-bold px-2 py-0.5 rounded-t">SAM: WORKPIECE_04</div>
+</div>
+<div class="absolute top-10 left-10 flex flex-col gap-3">
+<div class="glass-dark p-3 rounded-lg border-l-4 border-primary min-w-[140px]">
+<p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Global Coords</p>
+<div class="flex flex-col mt-1 font-mono text-xs">
+<div class="flex justify-between"><span>X:</span> <span class="text-primary">142.422</span></div>
+<div class="flex justify-between"><span>Y:</span> <span class="text-primary">-12.891</span></div>
+<div class="flex justify-between"><span>Z:</span> <span class="text-primary">894.103</span></div>
+</div>
+</div>
+<div class="glass-dark p-3 rounded-lg border-l-4 border-neon-purple min-w-[140px]">
+<p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Joint State</p>
+<div class="flex flex-col mt-1 font-mono text-xs">
+<div class="flex justify-between"><span>J1:</span> <span class="text-neon-purple">0.14 rad</span></div>
+<div class="flex justify-between"><span>J2:</span> <span class="text-neon-purple">-1.02 rad</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-6 right-6 flex flex-col gap-2">
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full glass-dark flex items-center justify-center hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-white text-lg">videocam</span>
+</button>
+<button class="w-10 h-10 rounded-full glass-dark flex items-center justify-center hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-white text-lg">layers</span>
+</button>
+<button class="w-10 h-10 rounded-full glass-dark flex items-center justify-center hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-white text-lg">settings_overscan</span>
+</button>
+</div>
+</div>
+</div>
+<div class="p-6 glass-dark border-t border-white/5 flex flex-col gap-4">
+<div class="flex items-center justify-between relative group">
+<button class="flex-1 flex items-center justify-center gap-3 rounded-xl h-14 bg-primary text-white font-bold opacity-30 cursor-not-allowed transition-all" disabled="">
+<span class="material-symbols-outlined">download</span>
+<span>Download RLDS Dataset</span>
+</button>
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs px-3 py-2 rounded-lg border border-white/10 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                            Processing must reach 100%
+                        </div>
+</div>
+<div class="flex justify-between text-[11px] text-slate-500 font-medium px-1">
+<div class="flex gap-4">
+<span>FPS: 24.2</span>
+<span>LATENCY: 42ms</span>
+<span>MODEL: ViT-H/14</span>
+</div>
+<div class="flex gap-4">
+<span>EST. TIME REMAINING: 14m 22s</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

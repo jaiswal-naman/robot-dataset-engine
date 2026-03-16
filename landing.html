@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AutoEgoLab v3.0 | Video to Robot Actions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1f44f9",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#000000",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                        "accent-purple": "#8b5cf6",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(31, 68, 249, 0.15) 0%, transparent 70%);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 selection:bg-primary/30">
+<div class="relative min-h-screen flex flex-col overflow-x-hidden">
+<!-- Background Decorations -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] hero-glow pointer-events-none"></div>
+<div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-accent-purple/5 blur-[120px] rounded-full"></div>
+<!-- Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-white/5 bg-black/50 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-primary rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-xl">deployed_code</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-white">AutoEgoLab <span class="text-primary">v3.0</span></span>
+</div>
+<nav class="hidden md:flex items-center gap-10">
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Product</a>
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Solutions</a>
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Docs</a>
+</nav>
+<div class="flex items-center gap-6">
+<button class="hidden sm:block text-sm font-medium text-slate-400 hover:text-white transition-colors">Sign In</button>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg text-sm font-bold transition-all shadow-[0_0_20px_rgba(31,68,249,0.3)]">
+                        Get Started
+                    </button>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative pt-20 pb-32 px-6">
+<div class="max-w-5xl mx-auto text-center">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-8 uppercase tracking-widest">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                        New: VLA Dataset Engine
+                    </div>
+<h1 class="text-5xl md:text-7xl font-bold mb-8 tracking-tight leading-[1.1] text-gradient">
+                        From Video to Robot <br/> Actions in Minutes
+                    </h1>
+<p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+                        AutoEgoLab v3.0 converts raw factory footage into production-ready VLA datasets with zero manual annotation.
+                    </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+<button class="w-full sm:w-auto px-8 py-4 bg-primary text-white font-bold rounded-lg shadow-[0_0_30px_rgba(31,68,249,0.4)] hover:scale-[1.02] transition-transform">
+                            Try Live Demo
+                        </button>
+<button class="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-lg hover:bg-white/10 transition-all">
+                            Read Whitepaper
+                        </button>
+</div>
+<!-- Visualization Frame -->
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-accent-purple rounded-xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+<div class="relative glass-card rounded-xl overflow-hidden aspect-video shadow-2xl">
+<div class="absolute inset-0 bg-cover bg-center mix-blend-overlay opacity-40" data-alt="Futuristic factory with robot arms and digital overlays" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZ1HdtW4wfEAPdKaHdSf1Cgzw_OKV9xK2j2-t7ZDrooM0EsKnSMLY9MoufkizNj3skwP80jg74oX-AaYMZwKT3ur1-TH4gn6ZtF4OZl8QZ5WS0RY9MwTGRyjKF8uPVyeqJQ29dicMHJeswfE83cY9fSg9Wgm1iSkPezfWlHAJIArvkmvwYZn9dqFpC0hPiilW0MI_Y3zYdYTEaBJl_Yg7miOwcalnM83a5D12stmuKxeCaOup5F1CWlmjub22cCzK3LoLhje5ySQo')"></div>
+<!-- AI Overlay Elements -->
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-full h-full p-8 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="glass-card px-4 py-2 rounded border-white/20 text-xs font-mono text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">detection_and_zone</span> OBJECT_PERSISTENCE: 99.8%
+                                        </div>
+<div class="flex gap-2">
+<div class="size-2 rounded-full bg-red-500 animate-pulse"></div>
+<div class="text-[10px] font-mono text-white/50 uppercase tracking-tighter">Live Inference Stream</div>
+</div>
+</div>
+<div class="relative h-64 w-full">
+<!-- Mock Bounding Boxes -->
+<div class="absolute top-1/4 left-1/3 w-32 h-32 border-2 border-primary rounded animate-pulse">
+<div class="absolute -top-6 left-0 bg-primary text-[10px] px-2 py-0.5 text-white font-bold">GRIPPER_01</div>
+</div>
+<div class="absolute bottom-1/4 right-1/4 w-40 h-24 border-2 border-accent-purple rounded">
+<div class="absolute -top-6 left-0 bg-accent-purple text-[10px] px-2 py-0.5 text-white font-bold">ASSEMBLY_PART_A</div>
+</div>
+</div>
+<div class="flex justify-center">
+<div class="glass-card px-6 py-3 rounded-full flex gap-8 items-center border-white/10">
+<div class="flex flex-col items-center">
+<span class="text-[10px] text-white/40 uppercase">Frames</span>
+<span class="text-sm font-bold text-white">4,209</span>
+</div>
+<div class="w-px h-6 bg-white/10"></div>
+<div class="flex flex-col items-center">
+<span class="text-[10px] text-white/40 uppercase">Keypoints</span>
+<span class="text-sm font-bold text-white">128</span>
+</div>
+<div class="w-px h-6 bg-white/10"></div>
+<div class="flex flex-col items-center">
+<span class="text-[10px] text-white/40 uppercase">Action Labels</span>
+<span class="text-sm font-bold text-white">Auto-Gen</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Grid -->
+<section class="py-24 px-6 bg-white/[0.02] border-y border-white/5">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Enterprise-Grade Capabilities</h2>
+<p class="text-slate-400">Powering the next generation of robotic foundation models.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="glass-card p-8 rounded-xl border-white/10 hover:border-primary/50 transition-all group">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white">neurology</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-3">Zero-shot VLM</h3>
+<p class="text-slate-400 text-sm leading-relaxed">
+                                Leverage our state-of-the-art vision-language model architecture to understand scene context and intent without any task-specific training.
+                            </p>
+</div>
+<!-- Card 2 -->
+<div class="glass-card p-8 rounded-xl border-white/10 hover:border-primary/50 transition-all group">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white">track_changes</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-3">DINOv2 + SAM Tracking</h3>
+<p class="text-slate-400 text-sm leading-relaxed">
+                                Achieve pixel-perfect object persistence across complex occlusions using fused transformer embeddings and Segment Anything Model.
+                            </p>
+</div>
+<!-- Card 3 -->
+<div class="glass-card p-8 rounded-xl border-white/10 hover:border-primary/50 transition-all group">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white">cloud_done</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-3">Real-time Orchestration</h3>
+<p class="text-slate-400 text-sm leading-relaxed">
+                                Scalable cloud infrastructure designed for massive dataset generation, handling petabytes of factory video data with ultra-low latency.
+                            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- How it Works -->
+<section class="py-32 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-20">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">How it Works</h2>
+<p class="text-slate-400">Our automated pipeline from raw pixels to structured actions.</p>
+</div>
+<div class="relative">
+<!-- Connecting Line (Desktop) -->
+<div class="hidden md:block absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-y-1/2"></div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+<!-- Step 1 -->
+<div class="flex flex-col items-center text-center group">
+<div class="size-20 rounded-full glass-card border-white/20 flex items-center justify-center mb-8 relative z-10 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-primary">cloud_upload</span>
+<div class="absolute -top-2 -right-2 size-6 rounded-full bg-primary text-white text-[10px] font-bold flex items-center justify-center">1</div>
+</div>
+<h4 class="text-lg font-bold text-white mb-2">Upload Video</h4>
+<p class="text-slate-400 text-sm max-w-[240px]">
+                                    Securely ingest raw multi-view factory footage directly to our processing core.
+                                </p>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center text-center group">
+<div class="size-20 rounded-full glass-card border-white/20 flex items-center justify-center mb-8 relative z-10 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-primary">hub</span>
+<div class="absolute -top-2 -right-2 size-6 rounded-full bg-primary text-white text-[10px] font-bold flex items-center justify-center">2</div>
+</div>
+<h4 class="text-lg font-bold text-white mb-2">AI Agents Extract Skills</h4>
+<p class="text-slate-400 text-sm max-w-[240px]">
+                                    Proprietary agents decompose long-horizon videos into atomic robotic skills and keyframes.
+                                </p>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center text-center group">
+<div class="size-20 rounded-full glass-card border-white/20 flex items-center justify-center mb-8 relative z-10 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-primary">account_tree</span>
+<div class="absolute -top-2 -right-2 size-6 rounded-full bg-primary text-white text-[10px] font-bold flex items-center justify-center">3</div>
+</div>
+<h4 class="text-lg font-bold text-white mb-2">Output RLDS Graphs</h4>
+<p class="text-slate-400 text-sm max-w-[240px]">
+                                    Export structured RLDS-compliant datasets ready for immediate model training.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24 px-6">
+<div class="max-w-4xl mx-auto glass-card p-12 rounded-2xl text-center border-primary/20 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+<h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to automate your robot training?</h2>
+<p class="text-slate-400 mb-10 max-w-xl mx-auto">Join the leading manufacturers using AutoEgoLab to scale their robotic foundation models 100x faster.</p>
+<div class="flex flex-wrap justify-center gap-4">
+<button class="px-8 py-3 bg-primary text-white font-bold rounded-lg shadow-lg hover:shadow-primary/40 transition-all">
+                            Get Enterprise Access
+                        </button>
+<button class="px-8 py-3 bg-white/5 border border-white/10 text-white font-bold rounded-lg hover:bg-white/10 transition-all">
+                            Talk to Sales
+                        </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="border-t border-white/5 py-12 px-6 bg-black">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="size-6 bg-primary rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-xs">deployed_code</span>
+</div>
+<span class="font-bold text-white">AutoEgoLab</span>
+</div>
+<div class="flex gap-8 text-sm text-slate-500">
+<a class="hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-white transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-white transition-colors" href="#">Twitter</a>
+<a class="hover:text-white transition-colors" href="#">GitHub</a>
+</div>
+<div class="text-xs text-slate-600">
+                    © 2024 AutoEgoLab Inc. All rights reserved.
+                </div>
+</div>
+</footer>
+</div>
+</body></html>

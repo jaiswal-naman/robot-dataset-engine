@@ -1,0 +1,11 @@
+Building image im-oPLQmFAhilw4rjyTvlRYK4
+
+=> Step 0: FROM base
+
+=> Step 1: RUN pip install 'numpy<1.24' pillow
+Looking in indexes: http://pypi-mirror.modal.local:5555/simple
+Collecting numpy<1.24
+  Downloading http://pypi-mirror.modal.local:5555/simple/numpy/numpy-1.23.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.3 kB)
+Collecting pillow
+  Downloading http://pypi-mirror.modal.local:5555/simple/pillow/pillow-12.1.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/numpy/numpy-1.23.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.1 MB)
