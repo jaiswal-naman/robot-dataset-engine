@@ -1,31 +1,26 @@
-# 🤖 The Robot Training Data Problem No One Talks About
+<div align="center">
 
-> *You've raised $5M. Your demo works beautifully. And then someone asks: "How are you getting your training data?"*
+# 🤖 AutoEgoLab 
 
-That's the moment every robotics founder realizes they've just signed up for months of manual annotation, expensive teleoperation sessions, and dataset sizes that would make even well-funded startups wince.
+### *Autonomous Egocentric Video to VLA Dataset Engine*
 
-**You're not alone. This is the hidden bottleneck choking the entire robotics industry.**
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![LangGraph](https://img.shields.io/badge/LangGraph-Stateful_AI-FF6B35?style=for-the-badge)](https://langchain-ai.github.io/langgraph/)
+[![Modal](https://img.shields.io/badge/Modal-Serverless_GPU-A020F0?style=for-the-badge)](https://modal.com)
+[![Supabase](https://img.shields.io/badge/Supabase-Database-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
----
+**AutoEgoLab** is an automated pipeline that turns raw factory video into production-ready Vision-Language-Action (VLA) datasets in under a few minutes. It solves the biggest bottleneck in building general-purpose robots: the lack of high-quality demonstration data.
 
-# robot-dataset-engine
+[Features](#-key-features) · [HLD](#-high-level-design-hld) · [LLD](#-low-level-design-lld) · [System Design](#-system-design) · [Setup](#-getting-started) · [Deployment](#-deployment)
 
-<p align="center">
-  <strong>Turn raw factory video into production-ready VLA datasets in under 5 minutes.</strong>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Version-3.0-blue?style=flat-square" alt="Version">
-  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License">
-  <img src="https://img.shields.io/badge/Stack-Next.js_15%20%7C%20LangGraph%20%7C%20Modal%20%7C%20Supabase-orange?style=flat-square" alt="Tech Stack">
-  <img src="https://img.shields.io/badge/Processing_Time-%3C5_minutes-success?style=flat-square" alt="Speed">
-</p>
+</div>
 
 ---
 
-## The Pain Is Real
+## 🎯 The Problem
 
-If you're building robots that learn from demonstration, you've lived this:
+If you're building robots that learn from demonstration, you face a huge hurdle: getting data. Traditional methods are slow and expensive, and zero-shot learning requires quality data for fine-tuning.
 
 | Method | Cost | Time | Limitations |
 |--------|------|------|-------------|
@@ -33,233 +28,263 @@ If you're building robots that learn from demonstration, you've lived this:
 | **Kinesthetic Teaching** | High hardware cost | 30-60 min/task | Fails on complex dexterous tasks |
 | **Manual Annotation** | $10-30/frame | Weeks | Subjective, doesn't scale, soul-crushing |
 
-*Source: Industry surveys, Multiple robotics startups (2023-2024)*
+General-purpose robots need millions of demonstrations. At $20/frame, the math simply doesn't work. 
 
-**The math doesn't work.** General-purpose robots need millions of demonstrations. At $20/frame, that's... let me calculate...
+## 💡 The Solution
 
-Yeah, it doesn't work. That's why **zero-shot learning** and **foundation models** have been the holy grail. But they need *quality training data* to fine-tune on your specific tasks.
+You already have hours of footage of workers performing tasks. What if you could convert that existing video into structured, robot-trainable data automatically?
 
----
-
-## What If I Told You...
-
-> **There's a fourth way no one mentioned.**
-
-You already have hours of factory footage. Workers performing tasks. Demonstrations happening *right now* that you're not capturing.
-
-**What if you could convert that existing video into structured, robot-trainable data—automatically?**
-
-That's what robot-dataset-engine does.
+**AutoEgoLab** converts raw, egocentric factory video into structured VLA datasets automatically. In minutes, replacing weeks of annotation, you get skill segments, structured action labels, object masks, and hierarchical task graphs exported into RLDS format.
 
 ---
 
-## What This Actually Means For You
+## ✨ Key Features
 
-### Before robot-dataset-engine
-- 📹 Hours of raw video sitting on hard drives
-- 👨‍🔧 Workers performing tasks that get forgotten
-- 💰 $150-300/hour for teleoperation
-- ⏰ Weeks of manual annotation work
-- 📊 Datasets with 50-200 examples (if you're lucky)
+### 🚀 Zero-to-Dataset in Minutes
+- Process raw egocentric video into VLA datasets in **2-5 minutes**.
+- Serverless auto-scaling architecture keeps costs low (~$0.26 per video).
 
-### After robot-dataset-engine
-- 📹 Upload video → Get dataset
-- ⚡ **2-5 minutes** processing time
-- 💵 **$0.26** GPU cost per video (serverless)
-- 📊 VLA dataset with skill segments, action labels, object masks, hand poses
-- 🎯 RLDS format ready for OpenVLA, RT-X, π0 training
+### 🤖 7-Agent AI Pipeline
+- **Video & Quality Agents**: Select optimal keyframes, filter blur and bad exposure.
+- **Perception Agent**: Extracts objects, tracking masks with SAM 2.1, and 3D hand poses with MANO models (HaWoR).
+- **Segmentation Agent**: Accurately bounds skills in time.
+- **Action Agent**: Provides structured `{verb, object, tool, target}` labels via EgoVLM-3B / Gemini.
+- **Task Graph Agent**: Analyzes hierarchical, causal task dependencies.
+- **Dataset Builder**: Exports directly to RLDS format for OpenVLA, RT-X, or π0.
+
+### 📊 Comprehensive Insights
+- **Object Tracking**: Pixel-level masks with temporal consistency.
+- **Hand Pose Estimation**: Full 3D mesh via parametric models.
+- **Action Labels**: Instead of free-text, structured verbs, objects, and tools.
+- **Task Structure**: Hierarchical DAG representations of the demonstrated task.
+
+### 🌐 Cloud-Native Stack
+- Next.js 15 for a sleek web interface
+- LangGraph orchestration
+- Supabase for relational data
+- Modal.com for serverless GPU compute
 
 ---
 
-## How It Works
+## 🏛️ High-Level Design (HLD)
 
+The platform leverages a microservices-inspired workflow bridging the web UI, the backend orchestration, and cutting-edge vision models running on serverless GPUs.
+
+```mermaid
+graph TB
+    subgraph PL["🖥️ Presentation Layer"]
+        UI["Web Dashboard<br/>(Next.js 15)"]
+    end
+
+    subgraph AL["⚙️ Application Layer"]
+        API["Next.js API Routes"]
+    end
+
+    subgraph DL["💾 Data Layer"]
+        DB["Supabase PostgreSQL<br/>+ pgvector"]
+        Storage["Supabase Storage<br/>(Raw Videos)"]
+    end
+
+    subgraph OL["🧠 AI Pipeline Layer (Modal.com)"]
+        Webhook["Modal Webhook Server<br/>(FastAPI)"]
+        LG["LangGraph Engine<br/>(7-Agent Workflow)"]
+    end
+
+    subgraph EL["🌐 External AI Services"]
+        Gemini["Gemini 3.1 Pro"]
+        EgoVLM["EgoVLM-3B"]
+        DINO["DINOv2 ViT-B/14"]
+        SAM["SAM 2.1"]
+        HaWoR["HaWoR (3D Hand Mesh)"]
+    end
+
+    UI --> API
+    API --> DB
+    API --> Storage
+    API -->|"Trigger processing"| Webhook
+    Webhook --> LG
+    LG --> DINO
+    LG --> SAM
+    LG --> HaWoR
+    LG --> EgoVLM
+    LG --> Gemini
+    LG -->|"Store findings"| DB
+
+    style PL fill:#1a1a2e,stroke:#16213e,color:#e0e0e0
+    style AL fill:#16213e,stroke:#0f3460,color:#e0e0e0
+    style OL fill:#0f3460,stroke:#533483,color:#e0e0e0
+    style DL fill:#533483,stroke:#e94560,color:#e0e0e0
+    style EL fill:#e94560,stroke:#e94560,color:#ffffff
 ```
-Raw Video (egocentric, factory)
-         │
-         ▼
-    ┌─────────────────────────────────────────────┐
-    │     7-Agent AI Pipeline (LangGraph)          │
-    │                                              │
-    │   1. Video Agent      → Keyframe selection   │
-    │   2. Quality Agent    → Blur/exposure filter │
-    │   3. Perception      → Objects + masks +     │
-    │                         3D hand meshes       │
-    │   4. Segmentation    → Skill boundaries     │
-    │   5. Action Agent    → "pick up", "tighten"  │
-    │   6. Task Graph     → Causal dependencies   │
-    │   7. Dataset Builder→ RLDS export           │
-    └─────────────────────────────────────────────┘
-         │
-         ▼
-Output: VLA Dataset (JSON + TFRecord)
-        ├── Skill segments with timestamps
-        ├── Structured {verb, object, tool, target}
-        ├── Pixel-precise object masks (SAM 2.1)
-        ├── 3D hand meshes (MANO model)
-        └── Hierarchical task DAG
+
+---
+
+## 🔧 Low-Level Design (LLD)
+
+### LLD 1 — The 7-Agent Dataset Generation Pipeline (LangGraph)
+
+The core mechanism for processing video is a state graph containing our specialized agents.
+
+```mermaid
+stateDiagram-v2
+    [*] --> VideoAgent: Raw Video Input
+
+    VideoAgent --> QualityAgent: 30-150 Keyframes
+    note right of VideoAgent
+        Powered by DINOv2
+        Selects salient frames
+    end note
+
+    QualityAgent --> PerceptionAgent: Clean Frames
+    note left of QualityAgent
+        Filters blur/exposure
+        via OpenCV metrics
+    end note
+
+    PerceptionAgent --> SegmentationAgent: Frame Objects & Hand Meshes
+    note right of PerceptionAgent
+        SAM 2.1 (Masks) + 
+        HaWoR (3D Hands)
+    end note
+
+    SegmentationAgent --> ActionAgent: Temporal Skill Boundaries
+    
+    ActionAgent --> TaskGraphAgent: Structured Actions {verb, object...}
+    note left of ActionAgent
+        EgoVLM-3B / Gemini
+    end note
+
+    TaskGraphAgent --> DatasetBuilder: Causal Dependency DAG
+
+    DatasetBuilder --> [*]: RLDS Dataset Export
 ```
 
 ---
 
-## Why This Changes The Game
+## 🏗️ System Design
 
-| Dimension | Traditional | robot-dataset-engine |
-|-----------|-------------|---------------------|
-| **Annotation** | Manual / VLM hallucination | 7-agent automated pipeline |
-| **Object Tracking** | 2D bounding boxes | Pixel-level masks with temporal consistency |
-| **Hand Pose** | None / 2D keypoints | Full 3D mesh via MANO parametric model |
-| **Action Labels** | Free-text output | Structured `{verb, object, tool, target}` |
-| **Task Structure** | Flat list | Hierarchical DAG with causal edges |
-| **Speed** | Hours/Days | **~2-5 minutes** |
-| **Cost** | $150-300/hr human | **$0.26/video** (serverless GPU) |
-| **Scalability** | Linear with humans | Serverless auto-scaling |
+### System Context Diagram
 
----
+```mermaid
+graph LR
+    User([👤 Robotics Engineer])
+    
+    subgraph AutoEgoLab["AutoEgoLab Platform"]
+        WebApp["Next.js Web App"]
+        Backend["Modal GPU Backend<br/>(LangGraph)"]
+        DB["Supabase DB"]
+    end
+    
+    Models["Open-Weights / APIs<br/>(DINOv2, SAM, Gemini)"]
+    
+    User <-->|"Upload Video / View Data"| WebApp
+    WebApp -->|"Save Metadata"| DB
+    WebApp -->|"Trigger Inference"| Backend
+    Backend <-->|"Query state/results"| DB
+    Backend <-->|"Run ML Models"| Models
 
-## Who Is This For?
-
-### 🤖 Robotics Startups
-- Building manipulation robots? You need demonstration data.
-- Raised a round? This saves you $500K-2M in annotation costs.
-- Competing with well-funded incumbents? Now you can scale data faster.
-
-### 🏭 Industrial Automation
-- Have existing worker footage? Convert it to training data.
-- Deploying new robot cells? Generate datasets in minutes.
-- Need to retrain for new products? Just upload new video.
-
-### 🔬 Research Labs
-- Ego4D, EPIC-KITCHENS, H2O datasets need structure.
-- Publish datasets in RLDS format—immediately usable by others.
-- Focus on algorithms, not annotation drudgery.
+    style AutoEgoLab fill:#0f172a,stroke:#334155,color:#e2e8f0
+    style User fill:#3b82f6,stroke:#2563eb,color:#fff
+    style Models fill:#10a37f,stroke:#10a37f,color:#fff
+```
 
 ---
 
-## The Founder's ROI Calculator
+## 🛠️ Tech Stack
 
-Let's say you're building a general-purpose manipulation robot:
+| Component | Technology | Purpose |
+|-----------|-----------|---------|
+| **AI Orchestration** | LangGraph | Stateful, edge-based execution of agent workflow |
+| **GPU Compute** | Modal | Serverless GPU scaling with fast cold starts |
+| **Vision Models** | DINOv2, SAM 2.1 | Zero-shot image semantic extraction & temporal masking |
+| **Full Stack Framework** | Next.js 15 | Robust frontend and API route handling |
+| **Database** | Supabase (PostgreSQL) | Metadata, run results, and blob storage |
+| **VLM Services** | Google Gemini / EgoVLM | Action reasoning and DAG generation |
+| **Dataset Format** | TFRecord / JSON / RLDS| Standardized export for OpenVLA/RT-X training |
 
-| Cost Factor | Traditional | robot-dataset-engine |
+---
+
+## 💰 ROI / Performance
+
+By utilizing this tool, a typical robotics startup can realize massive savings:
+
+| Cost Factor | Traditional Methods | AutoEgoLab |
 |-------------|-------------|----------------------|
 | **1,000 demonstrations** | $45,000-90,000 (teleop) | ~$260 + your time |
 | **Annotation team** | $200K/year (3 FTEs) | $0 |
 | **Dataset iteration** | 2-3 weeks/iteration | Hours |
 | **Scale to 10K demos** | $450K-900K | ~$2,600 |
 
-**That's not a typo.** That's the difference between "we need more funding for data collection" and "we have 10x more data than our competitors."
-
 ---
 
-## Technical Deep Dive (For Your Engineers)
+## 🚀 Getting Started
 
-### Architecture
+### Prerequisites
+- Node.js & npm
+- Python 3.10+
+- Accounts on Supabase and Modal
 
-```
-┌──────────┐     ┌──────────────┐     ┌─────────────┐     ┌──────────────┐
-│  Browser │────▶│  Next.js API │────▶│   Modal.com │────▶│  Supabase    │
-│   (UI)   │     │  (Vercel)    │     │ (GPU Compute)│     │ (DB + Storage)│
-└────┬─────┘     └──────┬───────┘     └──────┬──────┘     └──────┬───────┘
-     │                  │                    │                   │
-     │           ┌──────▼───────┐     ┌──────▼──────┐    ┌──────▼───────┐
-     │           │  Upload      │     │ LangGraph    │    │   PostgreSQL │
-     │           │  Trigger     │     │ Pipeline     │    │   + pgvector │
-     │           └──────────────┘     │ (7 Agents)   │    └──────────────┘
-     │                                └─────────────┘
-     │                                        │
-     │                          ┌────────────▼────────────┐
-     │                          │   External Services     │
-     │                          │  Gemini 3.1 | LangSmith │
-     │                          │  DINOv2 | SAM 2.1 | HaWoR│
-     │                          └─────────────────────────┘
-```
-
-### The 7 Agents
-
-| # | Agent | Model | Runtime | Output |
-|---|-------|-------|---------|--------|
-| 1 | **Video Agent** | DINOv2 ViT-B/14 | 12s | 30-150 keyframes |
-| 2 | **Quality Agent** | OpenCV (CPU) | 4s | Clean frames |
-| 3 | **Perception** | YOLOE + SAM 2.1 + HaWoR | 40s | Objects + masks + 3D hands |
-| 4 | **Segmentation** | Signal processing | 8s | Skill boundaries |
-| 5 | **Action Agent** | EgoVLM-3B / Gemini | 28s | Action labels |
-| 6 | **Task Graph** | Gemini 3.1 Pro | 18s | Hierarchical DAG |
-| 7 | **Dataset Builder** | Pydantic + TFRecord | 4s | RLDS export |
-
-### Why These Models?
-
-- **DINOv2**: Self-supervised ViT—learns structural semantics without classification bias
-- **SAM 2.1**: Memory bank mechanism tracks objects through occlusions
-- **HaWoR**: Egocentric-specific 3D hand mesh (MANO model) — not MediaPipe
-- **EgoVLM-3B**: Fine-tuned on Ego4D for factory-specific action taxonomy
-- **LangGraph**: Typed state, fan-out/fan-in, checkpointing—built for AI pipelines
-
----
-
-## Quick Start
+### Installation
 
 ```bash
-# Clone
-git clone https://github.com/jaiswal-naman/robot-dataset-engine.git
-cd robot-dataset-engine
+# Clone the repository
+git clone https://github.com/jaiswal-naman/autoegolab.git
+cd autoegolab
 
-# Install
+# Install frontend dependencies
 npm install
 
-# Set environment
+# Setup environment variables
 cp .env.example .env.local
-# Fill in: SUPABASE_URL, SUPABASE_ANON_KEY, MODAL_WEBHOOK_SECRET, GEMINI_API_KEY
+# Fill in: SUPABASE_URL, SUPABASE_ANON_KEY, MODAL_TOKEN_ID, MODAL_TOKEN_SECRET, GEMINI_API_KEY
+```
 
-# Run
+### Run Locally
+
+```bash
+# Start the Next.js development server
 npm run dev
 ```
 
-### Deployment
+---
+
+## 🐳 Deployment
+
+### Frontend (Vercel)
 
 ```bash
-# Frontend → Vercel
 vercel deploy
+```
 
-# AI Pipeline → Modal
+### GPU Backend (Modal)
+
+```bash
 cd modal_backend
 modal deploy app.py
 ```
 
 ---
 
-## The Story Behind This
+## 🔮 Future Roadmap
 
-I built this because I watched brilliant robotics teams spend *months* on data collection instead of building their actual product.
-
-The insight: **Everyone has video. No one has data.**
-
-Workers are already performing tasks. Cameras are already recording. The missing piece is the conversion pipeline—and that's exactly what this is.
-
-If you're a founder building robots, your competitive advantage should be your **model architecture**, your **deployment infrastructure**, your **product-market fit**—not your ability to annotate frames manually.
-
-**Let the machines build the data. You build the future.**
-
----
-
-## Roadmap
-
-- [ ] Multi-camera support
+- [ ] Multi-camera / static camera support
 - [ ] Robot policy integration (ALOHA, RT-X)
 - [ ] Fleet ingestion for batch processing
-- [ ] Active learning for quality improvement
-- [ ] HuggingFace dataset hub integration
+- [ ] Active learning loop for quality improvement
+- [ ] Direct export to HuggingFace Dataset Hub
 
 ---
 
-## License
+## 📄 License
 
-MIT — Use it, build on it, make something great.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Let's Connect
+<div align="center">
 
-- 🐦 Twitter: [@namanjaiswal](https://twitter.com/namanjaiswal)
-- 💼 LinkedIn: [Naman Jaiswal](https://linkedin.com/in/naman-jaiswal)
-- 📧 Email: [naman@autoegolab.com](mailto:naman@autoegolab.com)
+**Built by [Naman Jaiswal](https://github.com/jaiswal-naman)**
 
-*Built with Next.js, LangGraph, Modal, and Supabase.*
+*AutoEgoLab — Let the machines build the data. You build the future.*
+
+</div>
